@@ -48,7 +48,7 @@ pipeline {
         steps {
             script {
                 echo "--->>> DOCKER CONTAINER/IMAGE CLEANUP"
-                bat "docker container stop"
+                bat "docker container stop mybusybox"
                 bat "docker container rm mybusybox"
                 bat "docker container ls"
                 bat "docker rmi busybox:latest"
