@@ -79,12 +79,13 @@ def gitCheckout() {
     poll: false,
     scm: [
      $class: "GitSCM",
-     branches: main    
+     branches: [[name: branchToBuild()]],
+     doGenerateSubmoduleConfigurations: false,
      extensions: [
        [$class: "RelativeTargetDirectory", relativeTargetDir: "vvadmin2018/demo3"],
-       
+       [$class: "CloneOption", depth: 1, honorRefspec: true, noTags: true, reference: "", shallow: true]
      ],
-     
+     submoduleCfg: [],
      userRemoteConfigs: [
        [
          credentialsId: 'e9f00908-5174-4fa1-82cf-9ca0e3a8c845',
@@ -92,6 +93,7 @@ def gitCheckout() {
        ]
      ]
    ]
+
   )
 
 }
