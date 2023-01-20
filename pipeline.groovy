@@ -36,7 +36,7 @@ pipeline {
         }
       }
             
-        stage('Build') {
+      stage('Build') {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'main', credentialsId: 'e9f00908-5174-4fa1-82cf-9ca0e3a8c845', url: 'git@github.com:vvadmin2018/demo3.git'
@@ -45,18 +45,19 @@ pipeline {
                 // To run Maven on a Windows agent, use
                 bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
+      }
 
         
-        stage("build") {
-      
+      stage("build") {
             steps {
                 script {
                   gitCheckout()
                 }
            }
 
-           }
-            post {
+        }
+      
+      post {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
@@ -64,11 +65,12 @@ pipeline {
                     archiveArtifacts 'target/*.jar'
                 }
             }
-        }
+        
 
 
     }   
 }
+
 def gitCheckout() {
 
   checkout(
