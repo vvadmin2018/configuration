@@ -1,3 +1,8 @@
+import hudson.model.User
+import hudson.tasks.Mailer
+import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
+import org.jenkinsci.plugins.workflow.steps.MissingContextVariableException
+
 pipeline {
 
     agent any
