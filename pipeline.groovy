@@ -76,7 +76,7 @@ def gitCheckout() {
     poll: false,
     scm: [
      $class: "GitSCM",
-     branches: [[name: branchToBuild()]],
+     branches: [[name: "main"]],
      doGenerateSubmoduleConfigurations: false,
      extensions: [
        [$class: "RelativeTargetDirectory", relativeTargetDir: "vvadmin2018/demo3"],
