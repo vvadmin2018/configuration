@@ -70,8 +70,8 @@ pipeline {
       }
 
     }
-
-    
+    }   
+}
 def gitCheckout() {
 
   checkout(
@@ -98,5 +98,3 @@ def gitCheckout() {
 
 }
  
-
-}
