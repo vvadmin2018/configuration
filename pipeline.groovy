@@ -30,7 +30,6 @@ pipeline {
                       bat "docker ps"
                       
                       echo "--->>> DOCKER IMAGE PULL"
-                      cleanDocker()
                       bat "docker image pull busybox:latest"
 
                       echo "--->>> DOCKER CONTAINER RUN"
