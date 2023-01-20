@@ -30,7 +30,7 @@ pipeline {
                       bat "docker ps"
                       
                       echo "--->>> DOCKER IMAGE PULL"
-                      bat "docker rmi busybox:latest"
+                      cleanDocker()
                       bat "docker image pull busybox:latest"
 
                       echo "--->>> DOCKER CONTAINER RUN"
@@ -48,10 +48,7 @@ pipeline {
         steps {
             script {
                 echo "--->>> DOCKER CONTAINER/IMAGE CLEANUP"
-                bat "docker container stop mybusybox"
-                bat "docker container rm mybusybox"
-                bat "docker container ls"
-                bat "docker rmi busybox:latest"
+                cleanDocker()
                 }
               }
 
@@ -112,5 +109,12 @@ def gitCheckout() {
 
   )
 
+}
+
+def cleanDocker() {
+    bat "docker container stop mybusybox"
+    bat "docker container rm mybusybox"
+    bat "docker container ls"
+    bat "docker rmi busybox:latest"
 }
  
