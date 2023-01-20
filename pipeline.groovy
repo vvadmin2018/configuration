@@ -1,0 +1,95 @@
+pipeline {
+
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M3"
+        git "Default"
+    }
+
+    stages {
+
+
+      stage("run tests") {
+        parallel {
+            stage('Print Env') {
+                steps {
+                    bat "set"
+                }
+            }
+             stage('Docker try') {
+                steps {
+                    script {
+                      bat "docker info"
+                      bat "docker ps"
+                      bat "docker run busybox"  
+                    }
+              }
+
+            }
+        }
+      }
+            
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git branch: 'main', credentialsId: 'e9f00908-5174-4fa1-82cf-9ca0e3a8c845', url: 'git@github.com:vvadmin2018/demo3.git'
+                //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+
+                // Run Maven on a Unix agent.
+                //sh "mvn -Dmaven.test.failure.ignore=true clean package"
+
+                // To run Maven on a Windows agent, use
+                bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
+        }
+
+    stage("build") {
+      when {expression { return !isFlinsyReleaseBuild()} }
+      steps {
+        script {
+
+          gitCheckout()
+
+        }
+      }
+
+    }
+
+    
+def gitCheckout() {
+
+  checkout(
+    changelog: false,
+    poll: false,
+    scm: [
+     $class: "GitSCM",
+     branches: main    
+     extensions: [
+       [$class: "RelativeTargetDirectory", relativeTargetDir: "vvadmin2018/demo3"],
+       
+     ],
+     
+     userRemoteConfigs: [
+       [
+         credentialsId: 'e9f00908-5174-4fa1-82cf-9ca0e3a8c845',
+         url: "git@github.com:vvadmin2018/demo3.git"
+       ]
+     ]
+   ]
+  )
+
+}
+ 
+
+}
