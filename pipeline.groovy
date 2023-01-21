@@ -56,8 +56,7 @@ pipeline {
       stage('K8s try') {
         steps {
             script {
-                echo "--->>> KUBERNETES VERISON"
-                bat "kubectl version --short"
+                echo "${test_param}"
                 }
               }
 
