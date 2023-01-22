@@ -33,7 +33,7 @@ pipeline {
                     echo "Credentials ${CRED_FROM_JENKINS}"
 
                     withCredentials([
-                        UsernamePasswordMultiBinding(credentials: 'test_k8s', usernameVariable: USER, passwordVariable: PWD)
+                        UsernamePasswordMultiBinding(credentials: 'test_k8s', usernameVariable: 'USER', passwordVariable: 'PWD')
                     ]) {
                         echo "User: ${USER} and password ${PWD}"
                         echo "Parameter version ${params.VERSION}"
