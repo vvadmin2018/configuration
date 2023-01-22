@@ -98,6 +98,13 @@ pipeline {
 
         }
         
+      stage ('Build') {
+        git url: 'https://github.com/vvadmin2018/demo3.git'
+        withMaven {
+            sh "mvn clean verify"
+        } 
+      }
+
     }
 
     post {
