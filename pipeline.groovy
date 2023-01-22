@@ -2,6 +2,7 @@ import hudson.model.User
 import hudson.tasks.Mailer
 import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 import org.jenkinsci.plugins.workflow.steps.MissingContextVariableException
+import static io.wcm.devops.jenkins.pipeline.utils.ConfigConstants.*
 
 pipeline {
 
@@ -101,7 +102,7 @@ pipeline {
         steps {
             script {
                 execMaven(
-                    scm : [ url: 'https://git.company.tld/group/project.git' ],
+                    scm : [ url: 'https://github.com/vvadmin2018/demo3.git' ],
                     maven : [ goals: ['clean', 'install'] ]
                 )
             }
