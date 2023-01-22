@@ -80,7 +80,8 @@ pipeline {
         steps {
             script {
                 echo "Version param ${VERSION}"
-                echo "Branch name ${BRANCH_NAME}"
+                echo "Branch name ${env.BRANCH_NAME}"
+                
                 }
               }
 
