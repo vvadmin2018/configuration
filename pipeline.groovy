@@ -61,16 +61,7 @@ pipeline {
 
             }
 
-            stage('Test') {
-                when {
-                    expression {
-                        params.executeTEST
-                    }
-                }
-                steps {
-                    bat "mvn test"
-                }
-            }
+
 
         }
       }
@@ -102,6 +93,20 @@ pipeline {
            }
 
         }
+
+        stage('Test') {
+            when {
+                expression {
+                    params.executeTEST
+                    }
+            }
+            steps {
+                    bat "cd ../vvadmin2018/demo3"
+                    bat "mvn -Dtest=TestMessageBuilder test"
+
+                }
+            } 
+        
     }
 
     post {
@@ -147,4 +152,4 @@ def cleanDocker() {
     bat "docker container ls"
     bat "docker rmi busybox:latest"
 }
- 
+
