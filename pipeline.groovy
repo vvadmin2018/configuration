@@ -78,11 +78,8 @@ pipeline {
 
       stage('K8s try') {
         steps {
-            script {
                 echo "Version param ${VERSION}"
                 echo "Branch name ${env.BRANCH_NAME}"
-                
-                }
               }
 
             }
