@@ -100,7 +100,7 @@ pipeline {
                     }
             }
             steps {
-                    bat "cd ../vvadmin2018/demo3"
+                    bat "cd D:/data/00.new_job/git_local/demo3"
                     bat "mvn -Dtest=TestMessageBuilder test"
 
                 }
