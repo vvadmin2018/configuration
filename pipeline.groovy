@@ -85,6 +85,11 @@ pipeline {
             }
 
       stage("Build appl") {
+            when {
+                expression {
+                    params.executeTEST
+                    }
+            }
             steps {
                 script {
                   gitCheckout()
@@ -93,18 +98,6 @@ pipeline {
 
         }
 
-        stage('Test') {
-            when {
-                expression {
-                    params.executeTEST
-                    }
-            }
-            steps {
-                    bat "cd D:/data/00.new_job/git_local/demo3"
-                    bat "mvn -Dtest=TestMessageBuilder test"
-
-                }
-            } 
         
     }
 
