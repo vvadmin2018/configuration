@@ -7,14 +7,41 @@ pipeline {
 
     agent any
 
+    parameters {
+        string(name: 'VERSION', defaultValue: "1.1.0", description: "version to be build")
+        booleanParam(name: 'executeTEST', defaultValue: true)
+    }
+
+    environment {
+        MY_ENV_VARIABLE = "dev"
+        CRED_FROM_JENKINS=credentials('test_k8s')
+    }
+
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "M3"
-        git "Default"
     }
 
     stages {
 
+
+        stage('Docker try') {
+            steps {
+                script {
+                    echo "--->>> VARIABLES"
+                    echo "Environment ${MY_ENV_VARIABLE}"
+                    echo "Credentials ${CRED_FROM_JENKINS}"
+
+                    withCredentials([
+                        UsernamePasswordMultiBinding(credentials: 'test_k8s', usernameVariable: USER, passwordVariable: PWD)
+                        echo "User: ${USER} and password ${PWD}"
+                        echo "Parameter version params.VERSION"
+
+                    ])
+                }
+            }
+
+        }
 
       stage("docker play") {
         parallel {
@@ -40,6 +67,18 @@ pipeline {
               }
 
             }
+
+            stage('Test') {
+                when {
+                    expression {
+                        params.executeTEST
+                    }
+                }
+                steps {
+                    bat "mvn test"
+                }
+            }
+
         }
       }
             
