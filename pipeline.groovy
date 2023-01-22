@@ -97,7 +97,17 @@ pipeline {
            }
 
         }
+      stage("try Maven") {
+        steps {
+            script {
+                execMaven(
+                    scm : [ url: 'https://git.company.tld/group/project.git' ],
+                    maven : [ goals: ['clean', 'install'] ]
+                )
+            }
+        }
 
+      }
         
     }
 
