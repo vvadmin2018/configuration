@@ -151,7 +151,8 @@ pipeline {
 
       stage("Docker push"){
         steps{
-            bat "docker image push appl_fi3_image"
+            bat "docker image tag appl_fi3_image vanyavodchyts/appl_fi3_image"
+            bat "docker image push vanyavodchyts/appl_fi3_image"
         }
       }
 
