@@ -149,6 +149,12 @@ pipeline {
         }
       }
 
+      stage("Docker push"){
+        steps{
+            bat "docker image push appl_fi3_image"
+        }
+      }
+
     }
 
     post {
