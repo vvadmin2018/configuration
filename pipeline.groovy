@@ -61,6 +61,15 @@ pipeline {
 
             }
 
+            stage('Jenkins env') {
+                steps {
+                    echo "Version param ${VERSION}"
+                    echo "Branch name ${env.BRANCH_NAME}"
+              }
+
+            }
+
+
 
 
         }
@@ -76,14 +85,7 @@ pipeline {
 
             }
 
-      stage('K8s try') {
-        steps {
-                echo "Version param ${VERSION}"
-                echo "Branch name ${env.BRANCH_NAME}"
-              }
-
-            }
-
+      
       stage("Build appl") {
             when {
                 expression {
