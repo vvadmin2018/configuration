@@ -147,6 +147,7 @@ pipeline {
                 bat "docker login -u ${DOCKER_REGISTRY_USER} -p ${DOCKER_REGISTRY_PWD}"
             }
         }
+      }
 
     }
 
