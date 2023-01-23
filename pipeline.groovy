@@ -15,11 +15,13 @@ pipeline {
     environment {
         MY_ENV_VARIABLE = "dev"
         CRED_FROM_JENKINS=credentials('test_k8s')
+        dockerhub=credentials('dockerhub-vodchyts')
     }
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "M3"
+
     }
 
     stages {
@@ -100,7 +102,7 @@ pipeline {
 
         }
         
-      stage ('Build') {
+      stage ('Maven Verify') {
         steps {
 
             git branch: 'main', credentialsId: 'e9f00908-5174-4fa1-82cf-9ca0e3a8c845', url: 'git@github.com:vvadmin2018/demo3.git'
@@ -111,7 +113,7 @@ pipeline {
          
       }
 
-      stage ('try maven') {
+      stage ('Maven install') {
         steps {
 
 
@@ -138,6 +140,13 @@ pipeline {
                     }
               }
       }
+
+      stage("Docker login"){
+        steps{
+            withCredentials([usernamePassword(credentialsId: 'dockerhub-vodchyts', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
+                bat "docker login -u ${DOCKER_REGISTRY_USER} -p ${DOCKER_REGISTRY_PWD}"
+            }
+        }
 
     }
 
