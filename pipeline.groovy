@@ -125,6 +125,19 @@ pipeline {
         }
       }
 
+      stage('Docker image') {
+                steps {
+                    script {
+
+                      git branch: 'main', credentialsId: 'e9f00908-5174-4fa1-82cf-9ca0e3a8c845', url: 'git@github.com:vvadmin2018/demo3.git'
+
+                      echo "--->>> DOCKER IMAGE BUILD FROM THE DOCKER FILE"
+                      bat "docker build"
+                                           
+
+                    }
+              }
+
     }
 
     post {
