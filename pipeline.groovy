@@ -117,7 +117,7 @@ pipeline {
             
             withEnv(["PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
 
-                bat "mvn --batch-mode -V -U -e clean deploy -Dsurefire.useFile=false"
+                bat "mvn --batch-mode -V -U -e clean test -Dsurefire.useFile=false"
             }
 
         }
